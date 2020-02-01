@@ -23,7 +23,7 @@ public class CameraFollow : MonoBehaviour
 
     void HandlePosition()
     {
-        transform.position = target.position;
+        transform.position = target.position - Vector3.forward;
     }
 
     void HandleRotation()

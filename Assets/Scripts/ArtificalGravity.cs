@@ -8,6 +8,12 @@ public class ArtificalGravity : MonoBehaviour
     //level design varibles
     public float gravityMult = 1;
 
+    [Header("Only turn this setting off if this is on the player")]
+    public bool applyGravity = true;
+
+    [Header("DO NOT TOUCH")]
+    public Vector3 gVector;
+
     //private object references
     private Transform _gc; //Gravity Center
     private Rigidbody2D _rb; //our RigidBody
@@ -35,7 +41,9 @@ public class ArtificalGravity : MonoBehaviour
 
     void UpdateGravity()
     {
-        _rb.AddForce((_gc.position - transform.position).normalized * g * GravityMult());
+        gVector = (_gc.position - transform.position).normalized * g * GravityMult();
+        if (applyGravity)
+            _rb.AddForce(gVector);
     }
 
     float GravityMult()

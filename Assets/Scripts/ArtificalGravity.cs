@@ -5,18 +5,26 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class ArtificalGravity : MonoBehaviour
 {
-
+    //level design varibles
     public float gravityMult = 1;
+
+    //private object references
+    private Transform _gc; //Gravity Center
+    private Rigidbody2D _rb; //our RigidBody
+
+    //constants
     private float g = -9.81f;
-    private Transform _gc;
-    private Rigidbody2D _rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get the required components
         _gc = GameObject.FindGameObjectWithTag("Gravity Center").transform;
         _rb = GetComponent<Rigidbody2D>();
-        g = Physics.gravity.y;
+
+        _rb.gravityScale = 0; //Prevent mistakes by removing unity default gravity
+
+        g = Physics.gravity.y; //Ensure that we have the correct value of little g
     }
 
     // FixedUpdate is called once per Physics loop

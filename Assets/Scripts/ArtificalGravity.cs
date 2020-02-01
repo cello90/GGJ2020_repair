@@ -5,6 +5,8 @@ using UnityEngine;
 public class ArtificalGravity : MonoBehaviour
 {
 
+    public float gravityMult = 1;
+    private float g = -9.81f;
     private Transform _gc;
     private Rigidbody _rb;
 
@@ -12,12 +14,17 @@ public class ArtificalGravity : MonoBehaviour
     void Start()
     {
         _gc = GameObject.FindGameObjectWithTag("Gravity Center").transform;
-        _rb = GetComponent<GameObject>
+        _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // FixedUpdate is called once per Physics loop
+    void FixedUpdate()
     {
         
+    }
+
+    void updateGravity()
+    {
+        _rb.AddForce
     }
 }

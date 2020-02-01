@@ -8,8 +8,8 @@ public class ArtificalGravity : MonoBehaviour
     //level design varibles
     public float gravityMult = 1;
 
-    [Header("Only turn this setting off if this is on the player")]
-    public bool applyGravity = true;
+    //[Header("Only turn this setting off if this is on the player")]
+    private bool applyGravity = true;
 
     [Header("DO NOT TOUCH")]
     public Vector3 gVector;

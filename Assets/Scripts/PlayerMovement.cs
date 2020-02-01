@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(ArtificalGravity))]
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -13,10 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     //private object references
     private Rigidbody2D _rb; //our RigidBody
-    private ArtificalGravity _ag; //our Artificial Gravity Handler
 
     private bool _grounded = false;
-    private float upVel = 0;
 
     private bool jumping = false;
 
@@ -25,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //Get the required components
         _rb = GetComponent<Rigidbody2D>();
-        _ag = GetComponent<ArtificalGravity>();
     }
 
     // Update is called once per frame
@@ -50,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleInput()
     {
-        Debug.Log(Input.GetAxis("Jump"));
         if (Input.GetAxis("Jump") > 0 && _grounded)
         {
             Jump();
@@ -60,21 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        upVel += jumpForce;
-        jumping = true;
+        _rb.AddForce(transform.up * jumpForce);
     }
 
     void Move()
     {
-        _rb.velocity = transform.right * Input.GetAxis("Horizontal") + (transform.up * upVel);
-        if (!_grounded)
-        {
-            upVel -= _ag.gVector.magnitude * Time.deltaTime;
-            jumping = false;
-        }
-        else if(!jumping)
-        {
-            upVel = 0;
-        }
+        _rb.AddForce(transform.right * Input.GetAxis("Horizontal") * speed);
     }
 }

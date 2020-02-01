@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckGround();
         HandleInput();
+        Debug.DrawLine(transform.position, transform.position + transform.right, Color.red);
+        Debug.DrawLine(transform.position, transform.position - transform.right, Color.red);
     }
 
     void CheckGround()

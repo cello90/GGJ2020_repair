@@ -12,7 +12,7 @@ public class YourClassAsset {
         ScriptableObjectUtility.CreateAsset<SO_BaseItem>();
     }
 
-    [MenuItem("Assets/Create/Repair/Terrain")]
+    [MenuItem("Assets/Create/Repair/Room Feature")]
     public static void CreateNewRoomFeature()
     {
         ScriptableObjectUtility.CreateAsset<SO_RoomFeature>();

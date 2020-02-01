@@ -2,22 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+
 [ExecuteInEditMode]
 public class RoomFeature : MonoBehaviour
 {
 
-    public SO_RoomFeature terrain;
+    public SO_RoomFeature feature;
 
     private Sprite _sprite;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!this.gameObject.GetComponent<SpriteRenderer>())
-        {
-            this.gameObject.AddComponent<SpriteRenderer>();
-            this.gameObject.GetComponent<SpriteRenderer>().sprite = terrain.SO_Sprite;
-        }
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = feature.SO_Sprite;
+
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        Vector2 S = new Vector2(
+            gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.x * gameObject.transform.localScale.x,
+            gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.y * gameObject.transform.localScale.y
+            );
+        gameObject.GetComponent<BoxCollider2D>().size = S;
+        //gameObject.GetComponent<BoxCollider2D>().offset = new Vector2((S.x / 2), 0);
     }
 
     // Update is called once per frame
@@ -25,9 +34,9 @@ public class RoomFeature : MonoBehaviour
     {
         if (_sprite == null) 
         { 
-            if(terrain.SO_Sprite != null)
+            if(feature.SO_Sprite != null)
             {
-                _sprite = terrain.SO_Sprite;
+                _sprite = feature.SO_Sprite;
                 this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
             }
         }
@@ -36,23 +45,28 @@ public class RoomFeature : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if(terrain.terrain == Enum_Terrains.Elevator)
+        if(feature.feature_enum == Enum_Feature.Elevator)
         {
             // TEMP CODE -> Need to have this system more blown out
             GameObject.Find("Menu_Elevator").transform.Find("Image").transform.position = new Vector3(0, 0, 0);
         }
 
-        else if(terrain.terrain == Enum_Terrains.Door)
+        else if(feature.feature_enum == Enum_Feature.Door)
         {
-            Debug.Log("Working Door! WOuld have sent to " + terrain.SO_Door_NextRoom);
+            
         }
 
-        else if(collision.gameObject.GetComponent<Zac_Test_move>().item == terrain.problem_solver)
+        else if(collision.gameObject.GetComponent<Zac_Test_move>().item == feature.problem_solver)
         {
             // 
             collision.gameObject.GetComponent<Zac_Test_move>().item = null;
             Debug.Log("Terrain destroying self...");
             Destroy(this.gameObject);
         }
+    }
+
+    private void SolvedProblem()
+    {
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-public enum Enum_Terrains
+public enum Enum_Feature
 {
     Wall,
     Door,

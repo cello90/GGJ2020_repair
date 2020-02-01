@@ -17,6 +17,7 @@ public class PlayerAngle : MonoBehaviour
         //Get the required components
         _gc = GameObject.FindGameObjectWithTag("Gravity Center").transform;
         _rb = GetComponent<Rigidbody2D>();
+        Update();
     }
 
     // Update is called once per frame

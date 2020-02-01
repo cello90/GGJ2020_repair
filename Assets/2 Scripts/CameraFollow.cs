@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
 
     //The object the camera will follow
     public Transform target;
+    public float speed = 3f;
 
     public float changeRate = 0.1f;
     public float rotationRate = 0.5f;
@@ -26,7 +27,10 @@ public class CameraFollow : MonoBehaviour
 
     void HandlePosition()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position - Vector3.forward, changeRate);
+        if (Vector3.Distance(transform.position, (target.position - 10 * transform.forward)) >= Time.deltaTime * speed)
+            transform.position += ((target.position - 10 * transform.forward) - transform.position).normalized * Time.deltaTime * speed;
+        else
+            transform.position = (target.position - 10 * transform.forward);
     }
 
     void HandleRotation()

@@ -17,6 +17,8 @@ public class RoomFeature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (feature.SO_Sprite == null || feature.SO_Sprite == false)
+            Debug.LogError(this.name + " is missing a sprite!");
         this.gameObject.GetComponent<SpriteRenderer>().sprite = feature.SO_Sprite;
 
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;

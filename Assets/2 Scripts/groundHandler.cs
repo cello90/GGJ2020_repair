@@ -5,7 +5,7 @@ using UnityEngine;
 public class groundHandler : MonoBehaviour
 {
 
-    public GameObject player;
+    private GameObject player;
     private float distance;
     private Transform _gc; //Gravity Center
 
@@ -13,6 +13,7 @@ public class groundHandler : MonoBehaviour
     void Start()
     {
         _gc = GameObject.FindGameObjectWithTag("Gravity Center").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
         distance = player.GetComponent<ArtificalGravity>().shipRadius;
     }
 

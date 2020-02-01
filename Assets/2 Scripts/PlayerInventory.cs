@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
 
-    public SO_BaseItem item;
+    public List<AudioClip> clips;
+
+    //public SO_BaseItem item;
     [SerializeField] private Collider2D hittingACollider;
 
     // Start is called before the first frame update
@@ -20,44 +22,72 @@ public class PlayerInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Tried to interact...");
+
+            // Environment
             if(hittingACollider != false && hittingACollider != null)
             {
                 RoomFeature featureObject = hittingACollider.gameObject.GetComponent<RoomFeature>();
-                
-                if(featureObject.feature.problem_solver == null || featureObject.feature.problem_solver == false)
+
+                if (featureObject)
                 {
-                    if(featureObject.feature.feature_enum == Enum_Feature.Door)
+                    if (featureObject.feature.problem_solver == null || featureObject.feature.problem_solver == false)
                     {
-                        MoveRoom(featureObject);
+                        if (featureObject.feature.feature_enum == Enum_Feature.Door)
+                        {
+                            MoveRoom(featureObject);
+                        }
+                    }
+
+                    else if (featureObject.feature.problem_solver == Game.instance.currentItem)
+                    {
+                        Debug.Log("Should execute... Feature type: " + featureObject.feature.feature_enum.ToString());
+                        if (featureObject.feature.feature_enum == Enum_Feature.Door)
+                        {
+                            MoveRoom(featureObject);
+                        }
                     }
                 }
-                
-                else if (featureObject.feature.problem_solver == item)
+
+                BaseItem baseItem = hittingACollider.gameObject.GetComponent<BaseItem>();
+
+                // Items
+                if (baseItem && Game.instance.currentItem == null)
                 {
-                    Debug.Log("Should execute... Feature type: " + featureObject.feature.feature_enum.ToString());
-                    if(featureObject.feature.feature_enum == Enum_Feature.Door)
-                    {
-                        MoveRoom(featureObject);
-                    }
+                    Game.instance.currentItem = baseItem.item;
+                    Debug.Log("Player destroying item...");
+                    Destroy(hittingACollider.gameObject);
                 }
+
+                else if (baseItem && Game.instance.currentItem != null)
+                {
+                    // Get new item
+                    SO_BaseItem tmpItem = baseItem.item;
+
+                    // Reset existing item
+                    baseItem.item = Game.instance.currentItem;
+                    baseItem.UpdateSprite();
+
+                    // Set this scripts item
+                    Game.instance.currentItem = tmpItem;
+                    Debug.Log("Player destroying item...");
+                }
+
             }
             else
             {
                 Debug.Log("No interactions");
             }
         }
+
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Should drop the item...");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hittingACollider = collision;
-
-        if (hittingACollider.gameObject.GetComponent<BaseItem>() && item == null)
-        {
-            item = hittingACollider.gameObject.GetComponent<BaseItem>().item;
-            Debug.Log("Player destroying item...");
-            Destroy(collision.gameObject);
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -67,7 +97,14 @@ public class PlayerInventory : MonoBehaviour
 
     private void MoveRoom(RoomFeature featureObject)
     {
+        if(clips.Count > 0)
+            Game.instance.music.SetMusic(clips[Random.Range(0,clips.Count)]);
         Debug.Log("Should send to another room...");
+
+        if (featureObject.feature == null || featureObject.feature == false)
+            Debug.LogError("Should have a door assigned to the Game Object: " + this.name);
+
+        Game.instance.door = featureObject.feature;
         Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);
     }
 }

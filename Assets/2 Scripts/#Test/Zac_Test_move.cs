@@ -51,13 +51,11 @@ public class Zac_Test_move : MonoBehaviour
     {
         hittingACollider = collision;
 
-        if (hittingACollider.gameObject.GetComponent<BaseItem>())
+        if (hittingACollider.gameObject.GetComponent<BaseItem>() && item == null)
         {
             item = hittingACollider.gameObject.GetComponent<BaseItem>().item;
             Destroy(collision.gameObject);
         }
-
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)

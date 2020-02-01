@@ -54,6 +54,7 @@ public class Zac_Test_move : MonoBehaviour
         if (hittingACollider.gameObject.GetComponent<BaseItem>() && item == null)
         {
             item = hittingACollider.gameObject.GetComponent<BaseItem>().item;
+            Debug.Log("Player destroying item...");
             Destroy(collision.gameObject);
         }
     }

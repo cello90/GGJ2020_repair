@@ -13,9 +13,9 @@ public class YourClassAsset {
     }
 
     [MenuItem("Assets/Create/Repair/Terrain")]
-    public static void CreateNewTerrain()
+    public static void CreateNewRoomFeature()
     {
-        ScriptableObjectUtility.CreateAsset<SO_Terrain>();
+        ScriptableObjectUtility.CreateAsset<SO_RoomFeature>();
     }
 
 }

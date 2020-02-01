@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class Terrain : MonoBehaviour
+public class RoomFeature : MonoBehaviour
 {
 
-    public SO_Terrain terrain;
+    public SO_RoomFeature terrain;
 
     private Sprite _sprite;
 
@@ -42,10 +42,16 @@ public class Terrain : MonoBehaviour
             GameObject.Find("Menu_Elevator").transform.Find("Image").transform.position = new Vector3(0, 0, 0);
         }
 
+        else if(terrain.terrain == Enum_Terrains.Door)
+        {
+            Debug.Log("Working Door! WOuld have sent to " + terrain.SO_Door_NextRoom);
+        }
+
         else if(collision.gameObject.GetComponent<Zac_Test_move>().item == terrain.problem_solver)
         {
             // 
             collision.gameObject.GetComponent<Zac_Test_move>().item = null;
+            Debug.Log("Terrain destroying self...");
             Destroy(this.gameObject);
         }
     }

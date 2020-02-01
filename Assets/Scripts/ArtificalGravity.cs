@@ -17,6 +17,7 @@ public class ArtificalGravity : MonoBehaviour
     [Header("Player Settings")]
     public bool isPlayer = false;
     public float shipRadius = 5;
+    public GameObject ground;
 
     //private object references
     private Transform _gc; //Gravity Center
@@ -45,46 +46,12 @@ public class ArtificalGravity : MonoBehaviour
     void FixedUpdate()
     {
         HandleRadius();
+        Debug.DrawLine(transform.position, (Vector2)transform.position + _rb.velocity, Color.blue);
     }
 
     void HandleRadius()
     {
-        if (Vector3.Distance(transform.position, _gc.position) + _cc.radius >= shipRadius)
-        {
-            FixVel();
-        }
-        else
-        {
-            UpdateGravity();
-        }
-
-    }
-    void FixVel()
-    {
-        float startAngle = 0;
-        if (_rb.velocity.x < 0) {
-            startAngle = Mathf.Tan(_rb.velocity.y / _rb.velocity.x) + 90;
-        }
-        else
-        {
-            startAngle = Mathf.Tan(_rb.velocity.y / _rb.velocity.x) - 90;
-        }
-        float playerAngle = transform.eulerAngles.z; 
-        float newAngle = startAngle - playerAngle;
-        float magnitude = _rb.velocity.magnitude;
-        float xVel = Mathf.Cos((newAngle * Mathf.PI) / 180) * magnitude;
-        float yVel = Mathf.Sin(Mathf.PI - ((newAngle * Mathf.PI) / 180)) * magnitude;
-        Debug.Log(yVel);
-        //_rb.velocity = transform.right * xVel;
-        if (yVel > 0)
-            _rb.velocity = (transform.right * xVel) + (transform.up * yVel);
-        else
-            _rb.velocity = transform.right * xVel;
-    }
-
-    void FixPos()
-    {
-
+        UpdateGravity();
     }
 
     void UpdateGravity()

@@ -40,11 +40,6 @@ public class Game : MonoBehaviour
     }
 
     public void UpdateScene()
-    {        
-        spawnPlayer();
-    }
-
-    private void spawnPlayer()
     {
         // Instanitate stars
         GameObject stars = Instantiate(Resources.Load<GameObject>("Star"));
@@ -54,15 +49,21 @@ public class Game : MonoBehaviour
         GameObject spawnLoacation = Instantiate(Resources.Load<GameObject>("SpawnLocation"));
         spawnLoacation.name = "SpawnLocation";
 
+        // Gravity Center
         GameObject gravityCenter = Instantiate(new GameObject());
         gravityCenter.name = "Gravity Center";
         gravityCenter.tag = "Gravity Center";
 
+        spawnPlayer();
+    }
+
+    private void spawnPlayer()
+    {
+        
+
         player = Instantiate(Resources.Load<GameObject>("Player"));
         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
         player.gameObject.name = "Player";
-
-
 
         if (currentRoom == 0)
         {
@@ -129,6 +130,8 @@ public class Game : MonoBehaviour
 
     public void Reset()
     {
+        completedTasks = new List<SO_BaseItem>();
+        unlockedDoors = new List<SO_RoomFeature>();
         Debug.Log("Would reset the Game data");
     }
 }

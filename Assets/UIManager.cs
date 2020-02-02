@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public int startLevel = 3;
+
+    public void resume()
     {
-        
+        //todo
     }
 
-    // Update is called once per frame
-    void Update()
+    public void NewGame()
     {
-        
+        Game.instance.Reset();
+        Application.LoadLevel(startLevel);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

@@ -17,20 +17,16 @@ public class powerDisplay : MonoBehaviour
     void Start()
     {
         powerIndicator = GetComponent<RawImage>();
-        change = 100 / (powerLevel.Length - 1);
+        change = 100 / powerLevel.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.charge <= 0)
-        {
-            powerIndicator.texture = powerLevel[powerLevel.Length - 1];
-        }
-        else
+        if (player.charge > 0)
         {
             float val = player.charge / change;
-            val = (int) ((powerLevel.Length - 1) - val);
+            val = (int) (powerLevel.Length - val);
             powerIndicator.texture = powerLevel[(int) val];
         }
     }

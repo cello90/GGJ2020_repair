@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff3e365265c4924393bdccf7c5c332c, type: 3}
-  m_Name: New SO_BaseItem
+  m_Name: Spanner
   m_EditorClassIdentifier: 
-  SO_Name: 
-  SO_Sprite: {fileID: 0}
+  SO_Name: Spanner
+  SO_Sprite: {fileID: 21300000, guid: 66fd6092ac8e0f640aa9451989aba1cb, type: 3}

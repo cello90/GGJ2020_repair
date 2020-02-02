@@ -26,6 +26,10 @@ public class PlayerStatController : MonoBehaviour
         else
         {
             charge -= dischargeRate * Time.deltaTime;
+            if (charge < 0)
+            {
+                Application.LoadLevel(1);
+            }
         }
     }
 }

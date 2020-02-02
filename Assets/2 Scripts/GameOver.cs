@@ -21,7 +21,7 @@ public class GameOver : MonoBehaviour
         if (timer <= 0)
         {
             Application.LoadLevel(0);
-            //Game.instance.re
+            Game.instance.Reset();
         }
     }
 }

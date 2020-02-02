@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ff3e365265c4924393bdccf7c5c332c, type: 3}
-  m_Name: Key
+  m_Name: Lazer
   m_EditorClassIdentifier: 
-  SO_Name: Key
+  SO_Name: Lazer
   SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}

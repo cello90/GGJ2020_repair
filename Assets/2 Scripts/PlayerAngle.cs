@@ -25,10 +25,20 @@ public class PlayerAngle : MonoBehaviour
     {
         if (inGravity)
         {
-            if (transform.position.x < _gc.position.x)
-                transform.eulerAngles = new Vector3(0, 0, ((Mathf.Atan((_gc.position.y - transform.position.y) / (_gc.position.x - transform.position.x)) * 180) / Mathf.PI) - 90);
+            if ((_gc.position.x - transform.position.x) != 0)
+            {
+                if (transform.position.x < _gc.position.x)
+                    transform.eulerAngles = new Vector3(0, 0, ((Mathf.Atan((_gc.position.y - transform.position.y) / (_gc.position.x - transform.position.x)) * 180) / Mathf.PI) - 90);
+                else
+                    transform.eulerAngles = new Vector3(0, 0, ((Mathf.Atan((_gc.position.y - transform.position.y) / (_gc.position.x - transform.position.x)) * 180) / Mathf.PI) + 90);
+            }
             else
-                transform.eulerAngles = new Vector3(0, 0, ((Mathf.Atan((_gc.position.y - transform.position.y) / (_gc.position.x - transform.position.x)) * 180) / Mathf.PI) + 90);
+            {
+                if ((_gc.position.y - transform.position.y) > 0)
+                    transform.eulerAngles = new Vector3(0, 0, 90);
+                else
+                    transform.eulerAngles = new Vector3(0, 0, -90);
+            }
         }
         else
         {

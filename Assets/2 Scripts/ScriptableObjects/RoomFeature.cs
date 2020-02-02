@@ -58,13 +58,13 @@ public class RoomFeature : MonoBehaviour
             
         }
 
-        else if(collision.gameObject.GetComponent<Zac_Test_move>().item == feature.problem_solver)
-        {
-            // 
-            collision.gameObject.GetComponent<Zac_Test_move>().item = null;
-            Debug.Log("Terrain destroying self...");
-            Destroy(this.gameObject);
-        }
+        //else if(collision.gameObject.GetComponent<Zac_Test_move>().item == feature.problem_solver)
+        //{
+        //    // 
+        //    collision.gameObject.GetComponent<Zac_Test_move>().item = null;
+        //    Debug.Log("Terrain destroying self...");
+        //    Destroy(this.gameObject);
+        //}
     }
 
     private void SolvedProblem()

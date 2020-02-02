@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,39 +20,27 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetAxis("L_E") > 0)
         {
             Debug.Log("Tried to interact...");
 
-            // Environment
+            // If Colliders exist
             if(hittingACollider != false && hittingACollider != null)
             {
+                // Room Feature code
                 RoomFeature featureObject = hittingACollider.gameObject.GetComponent<RoomFeature>();
 
                 if (featureObject)
                 {
-                    if (featureObject.feature.problem_solver == null || featureObject.feature.problem_solver == false)
+                    if (featureObject.feature.feature_enum == Enum_Feature.Door)
                     {
-                        if (featureObject.feature.feature_enum == Enum_Feature.Door)
-                        {
-                            MoveRoom(featureObject);
-                        }
-                    }
-
-                    else if (featureObject.feature.problem_solver == Game.instance.currentItem)
-                    {
-                        Debug.Log("Should execute... Feature type: " + featureObject.feature.feature_enum.ToString());
-                        if (featureObject.feature.feature_enum == Enum_Feature.Door)
-                        {
-                            MoveRoom(featureObject);
-                            Game.instance.completedTasks.Add(Game.instance.currentItem);
-                        }
+                        CheckRoomData(featureObject);
                     }
                 }
 
+                // Base Item Code
                 BaseItem baseItem = hittingACollider.gameObject.GetComponent<BaseItem>();
 
-                // Items
                 if (baseItem && Game.instance.currentItem == null)
                 {
                     Game.instance.currentItem = baseItem.item;
@@ -89,21 +78,47 @@ public class PlayerInventory : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hittingACollider = collision;
+        Game.instance.UpdateEvent(true, collision.gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         hittingACollider = null;
+        Game.instance.UpdateEvent(false, collision.gameObject);
+    }
+
+    private void CheckRoomData(RoomFeature featureObject)
+    {
+        if (featureObject.feature.problem_solver == null || featureObject.feature.problem_solver == false)
+        {
+            if (featureObject.feature.feature_enum == Enum_Feature.Door)
+            {
+                MoveRoom(featureObject);
+            }
+        }
+
+        else if (featureObject.feature.problem_solver == Game.instance.currentItem)
+        {
+            Debug.Log("Should execute... Feature type: " + featureObject.feature.feature_enum.ToString());
+            if (featureObject.feature.feature_enum == Enum_Feature.Door)
+            {
+                MoveRoom(featureObject);
+                Game.instance.completedTasks.Add(Game.instance.currentItem);
+            }
+        }
     }
 
     private void MoveRoom(RoomFeature featureObject)
     {
-        if (clips.Count > 0)
-            Game.instance.music.SetMusic(clips[Random.Range(0,clips.Count)]);
+        //if (clips.Count > 0)
+        //    Game.instance.music.SetMusic(clips[Random.Range(0,clips.Count)]);
+
         Debug.Log("Should send to another room...");
 
         if (featureObject.feature == null || featureObject.feature == false)
             Debug.LogError("Should have a door assigned to the Game Object: " + this.name);
+
+
 
         Game.instance.door = featureObject.feature;
         Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);        

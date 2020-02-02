@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10;
     public float groundRange = 0.6f;
     public float falseFriction = 1.5f;
+    public Animator _anim;
 
     //private object references
     private Rigidbody2D _rb; //our RigidBody
@@ -68,5 +69,11 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         _rb.AddForce(transform.right * Input.GetAxis("Horizontal") * speed);
+        if (Input.GetAxis("Horizontal") > 0)
+            _anim.SetInteger("Run", 1);
+        else if (Input.GetAxis("Horizontal") < 0)
+            _anim.SetInteger("Run", -1);
+        else
+            _anim.SetInteger("Run", 0);
     }
 }

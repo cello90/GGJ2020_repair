@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System; 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,18 @@ public class Game : MonoBehaviour
     public List<SO_BaseItem> completedTasks = new List<SO_BaseItem>();
     public List<SO_RoomFeature> unlockedDoors = new List<SO_RoomFeature>();
     public SO_BaseItem currentItem = null;
+
+    // Notification Constants
+    public static event EventHandler<InfoEventArgs<GameObject, string>> EnterCollider;
+    public static event EventHandler<InfoEventArgs<GameObject>> ExitCollider;
+
+    //fireEvent(this, new InfoEventArgs<int>(i));
+
+    // On Enable
+    // InputController.fireEvent += ShootRaycast;
+
+    // OnDisable
+    //InputController.fireEvent -= ShootRaycast;
 
     private void OnEnable()
     {
@@ -126,6 +139,52 @@ public class Game : MonoBehaviour
             player.transform.position.y,
             -10f
             );
+    }
+
+    public void UpdateEvent(bool enterOrExit, GameObject obj)
+    {
+        if(enterOrExit == true)
+        {
+            string msg = "";
+
+            if (obj.GetComponent<BaseItem>())
+            {
+                msg = "Press E to pick up!";
+            }
+
+            EnterCollider(this, new InfoEventArgs<GameObject, string>(obj, msg));
+        }
+            
+        else
+            ExitCollider(this, new InfoEventArgs<GameObject>(obj));
+    }
+
+    void UpdateSceneForCurrentProgress()
+    {
+        RoomFeature[] features = GameObject.FindObjectsOfType<RoomFeature>();
+        BaseItem[] items = GameObject.FindObjectsOfType<BaseItem>();
+
+        //foreach(RoomFeature obj in features)
+        //{
+        //    foreach(SO_RoomFeature rf in features)
+        //    {
+        //        if(obj.feature == rf)
+        //        {
+        //            Debug.Log("Match found for Feature");
+        //        }
+        //    }
+        //}
+
+        foreach(BaseItem item in items)
+        {
+            foreach(SO_BaseItem bi in completedTasks)
+            {
+                if(item.item == bi)
+                {
+                    Destroy(item);
+                }
+            }
+        }
     }
 
     public void Reset()

@@ -8,6 +8,7 @@ public class groundHandler : MonoBehaviour
     private GameObject player;
     private float distance;
     private Transform _gc; //Gravity Center
+    public bool opisite;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,9 @@ public class groundHandler : MonoBehaviour
     void Update()
     {
         transform.eulerAngles = player.transform.eulerAngles;
-        transform.position = _gc.position - (transform.up * (distance + 0.5f));
+        if (opisite)
+            transform.position = _gc.position + (transform.up * (distance + 0.5f));
+        else
+            transform.position = _gc.position - (transform.up * (distance + 0.5f));
     }
 }

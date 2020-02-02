@@ -11,7 +11,8 @@ public class Game : MonoBehaviour
     public GameObject player = null;
     public SO_RoomFeature door = null;
     public MusicManager music = null;
-    public List<BaseItem> completedTasks = new List<BaseItem>();
+    public List<SO_BaseItem> completedTasks = new List<SO_BaseItem>();
+    public List<SO_RoomFeature> unlockedDoors = new List<SO_RoomFeature>();
     public SO_BaseItem currentItem = null;
 
     private void OnEnable()
@@ -38,20 +39,21 @@ public class Game : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Room" + roomNumber);
     }
 
-    private void Update()
-    {
-        if(player == null && !inMenu)
-        {
-            player = GameObject.Find("Player");
-            if(player == null || player == false)
-            {
-                spawnPlayer();
-            }
-        }
+    public void UpdateScene()
+    {        
+        spawnPlayer();
     }
 
     private void spawnPlayer()
     {
+        // Instanitate stars
+        GameObject stars = Instantiate(Resources.Load<GameObject>("Star"));
+        stars.transform.position = new Vector3(0, 0, 100f);
+
+        // Instaniate spawnlocation
+        GameObject spawnLoacation = Instantiate(Resources.Load<GameObject>("SpawnLocation"));
+        spawnLoacation.name = "SpawnLocation";
+
         GameObject gravityCenter = Instantiate(new GameObject());
         gravityCenter.name = "Gravity Center";
         gravityCenter.tag = "Gravity Center";
@@ -106,6 +108,15 @@ public class Game : MonoBehaviour
                 }
             }
 
+            if(player == null)
+            {
+                player.transform.Find("PlayerPhysics").gameObject.transform.position = new Vector3(
+                    GameObject.Find("SpawnLocation").transform.position.x,
+                    GameObject.Find("SpawnLocation").transform.position.y,
+                    -3f
+                );
+            }
+
             door = null;
         }
 
@@ -114,6 +125,11 @@ public class Game : MonoBehaviour
             player.transform.position.y,
             -10f
             );
+    }
+
+    public void Reset()
+    {
+        Debug.Log("Would reset the Game data");
     }
 }
 

@@ -44,6 +44,7 @@ public class PlayerInventory : MonoBehaviour
                         if (featureObject.feature.feature_enum == Enum_Feature.Door)
                         {
                             MoveRoom(featureObject);
+                            Game.instance.completedTasks.Add(Game.instance.currentItem);
                         }
                     }
                 }
@@ -97,7 +98,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void MoveRoom(RoomFeature featureObject)
     {
-        if(clips.Count > 0)
+        if (clips.Count > 0)
             Game.instance.music.SetMusic(clips[Random.Range(0,clips.Count)]);
         Debug.Log("Should send to another room...");
 
@@ -105,6 +106,6 @@ public class PlayerInventory : MonoBehaviour
             Debug.LogError("Should have a door assigned to the Game Object: " + this.name);
 
         Game.instance.door = featureObject.feature;
-        Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);
+        Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);        
     }
 }

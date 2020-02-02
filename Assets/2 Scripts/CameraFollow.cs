@@ -11,11 +11,12 @@ public class CameraFollow : MonoBehaviour
 
     public float changeRate = 0.1f;
     public float rotationRate = 0.5f;
+    public Vector3 cameraRelOffset = new Vector3(0,0,-10);
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position = (target.position - 10 * transform.forward);
     }
 
     // Update is called once per frame
@@ -27,10 +28,13 @@ public class CameraFollow : MonoBehaviour
 
     void HandlePosition()
     {
-        if (Vector3.Distance(transform.position, (target.position - 10 * transform.forward)) >= Time.deltaTime * speed)
-            transform.position += ((target.position - 10 * transform.forward) - transform.position).normalized * Time.deltaTime * speed;
+
+        Vector3 targetLoc = target.position + (transform.right * cameraRelOffset.x) + (transform.up * cameraRelOffset.y) + (transform.forward * cameraRelOffset.z);
+
+        if (Vector3.Distance(transform.position, targetLoc) >= Time.deltaTime * speed)
+            transform.position += (targetLoc - transform.position).normalized * Time.deltaTime * speed;
         else
-            transform.position = (target.position - 10 * transform.forward);
+            transform.position = targetLoc;
     }
 
     void HandleRotation()

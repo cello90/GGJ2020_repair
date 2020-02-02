@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608dacc812f02ca4e905dad349a881e1, type: 3}
+  m_Name: _CoolantTube
+  m_EditorClassIdentifier: 
+  name: Coolant Tube
+  feature_enum: 3
+  problem_solver: {fileID: 11400000, guid: d5ba5890c06f78f41a49dd3a53761b20, type: 2}
+  SO_Sprite: {fileID: 21300000, guid: 7c6516ede3525564c970d7d0af104f9a, type: 3}
+  SO_Fixed_Image: {fileID: 21300000, guid: 16be3f31308b43f409da20c4b2acdd57, type: 3}
+  SO_Door_NextRoom: 0
+  SO_Door_LinkedTo: {fileID: 0}
+  story_chapter: 5
+  musicChange: {fileID: 8300000, guid: 99372076fe7c5604cb1795c51af26927, type: 3}
+  isEnd: 0

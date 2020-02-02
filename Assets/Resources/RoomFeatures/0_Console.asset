@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Console
   feature_enum: 3
-  problem_solver: {fileID: 11400000, guid: cb224dccafe573447a4b8b31738b534e, type: 2}
-  SO_Sprite: {fileID: 21300000, guid: 7828b2ce0998c75479c56b9510b683f5, type: 3}
-  SO_Fixed_Image: {fileID: 0}
+  problem_solver: {fileID: 11400000, guid: d76e92cd5d6327943b2fc40b70802b49, type: 2}
+  SO_Sprite: {fileID: 21300000, guid: 90cb405f434a837409167addd022b0d4, type: 3}
+  SO_Fixed_Image: {fileID: 21300000, guid: 8b1f7c393931dc74d8bf5d2ff97c97a6, type: 3}
   SO_Door_NextRoom: 0
   SO_Door_LinkedTo: {fileID: 0}
   story_chapter: 1
+  musicChange: {fileID: 0}
+  isEnd: 0

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Spanner
   m_EditorClassIdentifier: 
   SO_Name: Spanner
-  SO_Sprite: {fileID: 21300000, guid: 66fd6092ac8e0f640aa9451989aba1cb, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: 4476a041a5dba79458de78ef5e9c5d9d, type: 3}

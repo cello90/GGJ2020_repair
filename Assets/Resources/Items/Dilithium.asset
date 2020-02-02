@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Dilithium
   m_EditorClassIdentifier: 
   SO_Name: Dilithium
-  SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: 3b7087e9d03085444b18976d3afcda30, type: 3}
+  pickUp_Sound: {fileID: 0}
+  use_Sound: {fileID: 0}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Bandaid
   m_EditorClassIdentifier: 
   SO_Name: Bandaid
-  SO_Sprite: {fileID: 21300000, guid: 120ffbad7b975884d89dcf7e1babb35c, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: 90886610d112cbf4cb94855dd2bc5f8a, type: 3}

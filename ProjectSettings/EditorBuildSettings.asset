@@ -12,36 +12,27 @@ EditorBuildSettings:
     path: Assets/1 Scenes/Game Over.unity
     guid: 4bd966472797b4b43bfa0d7a217aae1f
   - enabled: 1
-    path: Assets/1 Scenes/Room0.unity
-    guid: 63be5d7e34da0b042874e1c1ea0d6198
+    path: Assets/1 Scenes/Room0-Bridge.unity
+    guid: 1d25c375e2b6e3246bcad3b90f4fe454
   - enabled: 1
-    path: Assets/1 Scenes/Room1.unity
-    guid: 12a4041711b152548ad3757857453ab8
+    path: Assets/1 Scenes/Room1-Crew Quarters.unity
+    guid: b8253c17c7580b74b97e75d176359cc2
   - enabled: 1
-    path: Assets/1 Scenes/Room2.unity
-    guid: 95963ec406c86ce44a7431a399a922b3
+    path: Assets/1 Scenes/Room2-Sick Bay.unity
+    guid: 548cad4e75e72cf4cac491828e69489b
   - enabled: 1
-    path: Assets/1 Scenes/Room3.unity
-    guid: 57b67628f89386a4fa037d28ac9ec6fb
+    path: Assets/1 Scenes/Room3-Cryo Chamber.unity
+    guid: de7f0ee1fc99ff34fb90b0338b6a42cd
   - enabled: 1
-    path: Assets/1 Scenes/Room4.unity
-    guid: a4316a44a1a65634b993c4249554055e
+    path: Assets/1 Scenes/Room4-Science Lab.unity
+    guid: 62fd91d805ac51744a924b64d515f0af
   - enabled: 1
-    path: Assets/1 Scenes/Room5.unity
-    guid: 47165d40ba8c90c4389d12c5013ac479
+    path: Assets/1 Scenes/Room5-Cargo Bay.unity
+    guid: ef122d1341554c545b1a99a360d07f57
   - enabled: 1
-    path: Assets/1 Scenes/Room6.unity
-    guid: cb3eeec24a949714b8225f2cd1b51f3d
+    path: Assets/1 Scenes/Room6-Engines.unity
+    guid: a52bfa8f1c154a3429d0d80cc09c08bb
   - enabled: 1
-    path: Assets/1 Scenes/Room7.unity
-    guid: ed2ad31b38171f4429105450a1e8b278
-  - enabled: 1
-    path: Assets/1 Scenes/Room8.unity
-    guid: 137ca94c197fa3e499b96ead6cdeb912
-  - enabled: 1
-    path: Assets/1 Scenes/Room9.unity
-    guid: 6607bbeae487a394dbbf291e5b5aba24
-  - enabled: 1
-    path: Assets/1 Scenes/Room10.unity
-    guid: 3a97a86529e9c1342b1ae6c140f96746
+    path: Assets/1 Scenes/WinScene.unity
+    guid: 263b180961b43224783cece373220149
   m_configObjects: {}

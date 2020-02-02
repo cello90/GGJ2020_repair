@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lazer
   m_EditorClassIdentifier: 
   SO_Name: Lazer
-  SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: 5e3629bc8b51bb644a7a03d7936da7ed, type: 3}

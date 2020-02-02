@@ -26,7 +26,7 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("L_E") > 0 && canInteract)
+        if (Input.GetKeyDown(KeyCode.E) && canInteract)
         {
             Debug.Log("Tried to interact...");
 
@@ -42,6 +42,11 @@ public class PlayerInventory : MonoBehaviour
                     {
                         CheckRoomData(featureObject);
                     }
+
+                    else
+                    {
+                        CheckRoomFeatureUse(featureObject);
+                    }
                 }
 
                 // Base Item Code
@@ -49,6 +54,7 @@ public class PlayerInventory : MonoBehaviour
 
                 if (baseItem && Game.instance.currentItem == null)
                 {
+
                     Game.instance.currentItem = baseItem.item;
                     Debug.Log("Player destroying item...");
                     Destroy(hittingACollider.gameObject);
@@ -95,6 +101,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void CheckRoomData(RoomFeature featureObject)
     {
+        Debug.Log("CheckRoomData");
         if (featureObject.feature.problem_solver == null || featureObject.feature.problem_solver == false)
         {
             if (featureObject.feature.feature_enum == Enum_Feature.Door)
@@ -129,8 +136,6 @@ public class PlayerInventory : MonoBehaviour
         if (featureObject.feature == null || featureObject.feature == false)
             Debug.LogError("Should have a door assigned to the Game Object: " + this.name);
 
-
-
         Game.instance.door = featureObject.feature;
         Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);        
     }
@@ -143,5 +148,27 @@ public class PlayerInventory : MonoBehaviour
             canInteract = true;
     }
 
+    void CheckRoomFeatureUse(RoomFeature featureObject)
+    {
+        Debug.Log("Checking room feature use");
+        if(featureObject.feature.problem_solver == Game.instance.currentItem)
+        {
+            if(featureObject.feature.story_chapter == 9)
+            {
+                Game.instance.WinCondition();
+            }
+            else
+            {
+                Game.instance.completedTasks.Add(Game.instance.currentItem);
+                Game.instance.currentItem = null;
 
+                featureObject.GetComponent<SpriteRenderer>().sprite = featureObject.feature.SO_Fixed_Image;
+
+                Game.instance.PauseGame(true);
+                Game.instance.CompletedATask(featureObject.gameObject, Game.instance.json.GetMessage(featureObject.feature.story_chapter), featureObject.feature.musicChange);
+
+                Debug.Log("Solved feature");
+            }
+        }
+    }
 }

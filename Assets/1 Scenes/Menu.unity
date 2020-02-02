@@ -482,6 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 896512809}
   - component: {fileID: 896512808}
+  - component: {fileID: 896512810}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -504,14 +505,19 @@ MonoBehaviour:
   currentRoom: 0
   inMenu: 0
   json_file: {fileID: 4900000, guid: 70f0f74d81f579f4f8966dda07518637, type: 3}
+  hints: {fileID: 4900000, guid: 012d91dbec9de8b4db7177da978a2fca, type: 3}
   music: {fileID: 0}
   json: {fileID: 0}
   completedTasks: []
-  unlockedDoors: []
   currentItem: {fileID: 0}
   power: 100
   player: {fileID: 0}
   door: {fileID: 0}
+  rewardChargeAmount: 10
+  firstMesssageRecieved: 0
+  winScene: 0
+  swapScene: 0
+  sceneSwap: {fileID: 0}
 --- !u!4 &896512809
 Transform:
   m_ObjectHideFlags: 0
@@ -526,6 +532,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &896512810
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896512807}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 152272fcae812824c9bd17d237d22625, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &975562427
 GameObject:
   m_ObjectHideFlags: 0

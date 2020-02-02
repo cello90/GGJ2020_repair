@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
     public int currentRoom;
     public bool inMenu = false;
     public TextAsset json_file = null;
+    public TextAsset hints = null;
 
     // Singleton code
     public static Game instance = null;
@@ -25,6 +26,7 @@ public class Game : MonoBehaviour
     public float power = 100;
     public GameObject player = null;
     public SO_RoomFeature door = null;
+    public float rewardChargeAmount = 10f;
 
     // Notification Constants
     public static event EventHandler<InfoEventArgs<GameObject, string>> EnterCollider;
@@ -34,13 +36,14 @@ public class Game : MonoBehaviour
 
     public bool firstMesssageRecieved = false;
 
-    //fireEvent(this, new InfoEventArgs<int>(i));
+    public int winScene = 9;
 
-    // On Enable
-    // InputController.fireEvent += ShootRaycast;
+    public bool swapScene = false;
 
-    // OnDisable
-    //InputController.fireEvent -= ShootRaycast;
+    public Animator sceneSwap;
+
+    private int newRoomNumber = 0;
+
 
     private void OnEnable()
     {
@@ -56,6 +59,7 @@ public class Game : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             music = this.gameObject.AddComponent<MusicManager>();
             json = this.gameObject.AddComponent<JSON_Manager>();
+            sceneSwap = this.gameObject.GetComponent<Animator>();
         }
         else
         {
@@ -67,9 +71,18 @@ public class Game : MonoBehaviour
 
     public void LoadScene(int roomNumber)
     {
-        player = null;
-        currentRoom = roomNumber;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Room" + roomNumber);
+        newRoomNumber = roomNumber;
+        sceneSwap.SetTrigger("Swap");
+    }
+
+    private void Update()
+    {
+        if (swapScene)
+        {
+            player = null;
+            currentRoom = newRoomNumber;
+            UnityEngine.SceneManagement.SceneManager.LoadScene(newRoomNumber);
+        }
     }
 
     public void UpdateScene()
@@ -87,6 +100,10 @@ public class Game : MonoBehaviour
         gravityCenter.name = "Gravity Center";
         gravityCenter.tag = "Gravity Center";
 
+        Destroy(GameObject.Find("Ship"));
+        GameObject Ship = Instantiate(Resources.Load<GameObject>("Ship"));
+        Ship.name = "Ship";
+
         spawnPlayer();
 
         UpdateSceneForCurrentProgress();
@@ -100,8 +117,9 @@ public class Game : MonoBehaviour
         player.transform.eulerAngles = new Vector3(0f, 0f, 0f);
         player.gameObject.name = "Player";
 
-        if (currentRoom == 0)
+        if (currentRoom == 0 && firstMesssageRecieved == false)
         {
+            Debug.Log("First spawn of player in room 0");
             player.transform.Find("PlayerPhysics").gameObject.transform.position = new Vector3(
                 GameObject.Find("SpawnLocation").transform.position.x,
                 GameObject.Find("SpawnLocation").transform.position.y,
@@ -124,6 +142,7 @@ public class Game : MonoBehaviour
             foreach (RoomFeature obj in objects)
             {
                 Debug.Log("Current feature: " + obj.feature + " searching: " + door.SO_Door_LinkedTo);
+                
                 if (obj.feature == door.SO_Door_LinkedTo)
                 {
                     player.transform.Find("PlayerPhysics").gameObject.transform.position = new Vector3(
@@ -161,6 +180,8 @@ public class Game : MonoBehaviour
             player.transform.position.y,
             -10f
             );
+
+
     }
 
     public void UpdateEvent(bool enterOrExit, GameObject obj)
@@ -200,6 +221,7 @@ public class Game : MonoBehaviour
         Debug.Log("Should have completed a task!");
         CompleteTask(obj, new InfoEventArgs<AudioClip, string>(clip, story));
         PauseGame(true);
+        power += rewardChargeAmount;
     }
 
     void UpdateSceneForCurrentProgress()
@@ -207,35 +229,54 @@ public class Game : MonoBehaviour
         RoomFeature[] features = GameObject.FindObjectsOfType<RoomFeature>();
         BaseItem[] items = GameObject.FindObjectsOfType<BaseItem>();
 
-        //foreach(RoomFeature obj in features)
-        //{
-        //    foreach(SO_RoomFeature rf in features)
-        //    {
-        //        if(obj.feature == rf)
-        //        {
-        //            Debug.Log("Match found for Feature");
-        //        }
-        //    }
-        //}
-
-        Debug.Log("Found " + items.Length + " of items in the room");
-
-        foreach(BaseItem item in items)
+        foreach (RoomFeature obj in features)
         {
+            foreach(SO_BaseItem bi in completedTasks)
+            {
+                if(obj.feature.problem_solver == bi)
+                {
+                    Debug.Log("*** Found a solution");
+                    obj.gameObject.GetComponent<SpriteRenderer>().sprite = obj.feature.SO_Fixed_Image;
+                    obj.isFixed = true;
+                }
+            }
+        }
+
+        //Debug.Log("Found " + items.Length + " of items in the room");
+        //Debug.Log("Number of completed tasks" + completedTasks.Count);
+
+        foreach (BaseItem item in items)
+        {
+            
+            if (item.item == currentItem)
+            {
+                Destroy(item.gameObject);
+            }
+
             foreach(SO_BaseItem bi in completedTasks)
             {
                 if(item.item == bi)
                 {
-                    Destroy(item);
+                    Destroy(item.gameObject);
+                }
+                else
+                {
+                    //Debug.Log("Did not delete " + item + " cuz it tried to match with " + bi);
                 }
             }
         }
     }
 
+    public void WinCondition()
+    {
+        Application.LoadLevel(winScene);
+    }
 
     public void Reset()
     {
         completedTasks = new List<SO_BaseItem>();
+        currentItem = null;
+        power = 100f;
         Debug.Log("Would reset the Game data");
     }
 }

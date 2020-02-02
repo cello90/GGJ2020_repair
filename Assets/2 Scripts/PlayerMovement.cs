@@ -13,26 +13,51 @@ public class PlayerMovement : MonoBehaviour
     public Animator _anim;
 
     //private object references
+    private bool paused = false;
+
     private Rigidbody2D _rb; //our RigidBody
 
     private bool _grounded = false;
 
     private bool jumping = false;
+    private AudioSource feet;
+
+    void OnEnable()
+    {
+        Game.IsPausedEvent += Pause;
+    }
+
+    private void OnDisable()
+    {
+        Game.IsPausedEvent -= Pause;
+    }
+
+    private void Pause(object obj, InfoEventArgs<bool> e)
+    {
+        if (e.info == true)
+            paused = true;
+        else
+            paused = false;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         //Get the required components
         _rb = GetComponent<Rigidbody2D>();
+        feet = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckGround();
-        HandleInput();
-        Debug.DrawLine(transform.position, transform.position + transform.right, Color.red);
-        Debug.DrawLine(transform.position, transform.position - transform.right, Color.red);
+        if (!paused)
+        {
+            CheckGround();
+            HandleInput();
+            Debug.DrawLine(transform.position, transform.position + transform.right, Color.red);
+            Debug.DrawLine(transform.position, transform.position - transform.right, Color.red);
+        }
     }
 
     void CheckGround()
@@ -69,11 +94,18 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         _rb.AddForce(transform.right * Input.GetAxis("Horizontal") * speed);
+        if (Input.GetAxis("Horizontal") != 0 && !feet.isPlaying)
+        {
+            feet.Play();
+        }
         if (Input.GetAxis("Horizontal") > 0)
             _anim.SetInteger("Run", 1);
         else if (Input.GetAxis("Horizontal") < 0)
             _anim.SetInteger("Run", -1);
         else
+        {
             _anim.SetInteger("Run", 0);
+            feet.Stop();
+        }
     }
 }

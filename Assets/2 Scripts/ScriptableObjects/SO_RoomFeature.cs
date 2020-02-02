@@ -12,4 +12,6 @@ public class SO_RoomFeature : ScriptableObject
     public int SO_Door_NextRoom;
     public SO_RoomFeature SO_Door_LinkedTo;
     public int story_chapter;
+    public AudioClip musicChange;
+    public bool isEnd = false;
 }

@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: DuctTape
   m_EditorClassIdentifier: 
   SO_Name: DuctTape
-  SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: a96cd57c605104a42ba49e9af75e7bcf, type: 3}
+  pickUp_Sound: {fileID: 0}
+  use_Sound: {fileID: 0}

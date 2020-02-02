@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: AIScrewDriver
   m_EditorClassIdentifier: 
   SO_Name: AIScrewDriver
-  SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: 3166ea0c4dd94d54cb36b49c3fd1116e, type: 3}
+  pickUp_Sound: {fileID: 0}
+  use_Sound: {fileID: 0}

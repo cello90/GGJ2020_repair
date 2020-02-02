@@ -9,6 +9,8 @@ public class SpeachHandler : MonoBehaviour
     public Animator ai_animation;
     public Text words;
 
+    public float timeSinceStart = 0f;
+
     bool AITalkingAnimation = false;
 
     private void OnEnable()
@@ -27,7 +29,16 @@ public class SpeachHandler : MonoBehaviour
 
     public void Talk(object obj, InfoEventArgs<GameObject, string> e)
     {
-        string text = e.Subtype;
+        string text = "";
+        if (e.Subtype == null)
+        {
+            text = e.Subtype;
+        }
+        else
+        {
+            text = e.Subtype;
+        }
+
         words.text = text;
         anim.SetBool("Talking", true);
     }
@@ -39,24 +50,55 @@ public class SpeachHandler : MonoBehaviour
 
     public void AITalk(object obj, InfoEventArgs<AudioClip, string> e)
     {
+        if(e.Subtype == null || e.Subtype == "")
+        {
+            Debug.LogError("Missing text");
+        }
+
+        Debug.Log("AI: " + e.Subtype);
+
+        // Set animation
         ai_animation.SetBool("Talking", true);
+
+        // Set text of animation object
         Text text = GameObject.Find("ShipAnim").transform.Find("RawImage").transform.Find("Text").GetComponent<Text>();
         text.text = e.Subtype;
+
+        // Set location variable
         AITalkingAnimation = true;
+
+        // Debug
+        Debug.Log("AI Should have a message pop up");
+
+        timeSinceStart = 0f;
+    }
+
+    public void UpdateHintText(string e)
+    {
+
     }
 
     private void Update()
     {
         if(AITalkingAnimation == true)
         {
-            // Get user input
-            if(Input.GetAxis("L_E") > 0)
-            {
-                ai_animation.SetBool("Talking", false);
-                Game.instance.PauseGame(false);
-                Debug.Log("Should get rid of text");
-                AITalkingAnimation = false;
-            }
+            if(timeSinceStart > 2f)
+                // Get user input
+                if(Input.GetAxis("L_E") > 0)
+                {
+                    ai_animation.SetBool("Talking", false);
+                    Game.instance.PauseGame(false);
+                    Debug.Log("Should get rid of text");
+                    AITalkingAnimation = false;
+                }
+
+            timeSinceStart += Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Game.instance.PauseGame(true);
+            Game.instance.CompletedATask(this.gameObject, Game.instance.json.GetMessage(1), null);
         }
     }
 }

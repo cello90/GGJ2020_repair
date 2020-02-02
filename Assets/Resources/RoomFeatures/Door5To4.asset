@@ -15,6 +15,7 @@ MonoBehaviour:
   name: Door5To4
   feature_enum: 1
   problem_solver: {fileID: 0}
-  SO_Sprite: {fileID: 21300000, guid: 74945758e79689b4da2a5bca81e90e1e, type: 3}
-  SO_Door_NextRoom: 4
+  SO_Sprite: {fileID: 21300000, guid: 513337da07c79364da9db5ba74aeacf2, type: 3}
+  SO_Door_NextRoom: 6
   SO_Door_LinkedTo: {fileID: 11400000, guid: 1ab928738dc7ced4d80d1619d2391fbc, type: 2}
+  story_chapter: 0

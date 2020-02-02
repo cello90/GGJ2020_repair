@@ -10,12 +10,16 @@ public class FirstLevelKickoff : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!Game.instance.firstMesssageRecieved)
+        if (!Game.instance.firstMesssageRecieved && Game.instance.json_file != null)
         {
             Game.instance.PauseGame(true);
 
-            Game.instance.CompletedATask(this.gameObject, Game.instance.json.GetMessage(0), null);
+            Game.instance.CompletedATask(this.gameObject, Game.instance.json.GetMessage(0), start_Music);
 
+            Game.instance.firstMesssageRecieved = true;
+        }
+        else
+        {
             Game.instance.firstMesssageRecieved = true;
         }
     }

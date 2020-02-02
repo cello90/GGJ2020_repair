@@ -11,7 +11,7 @@ public class RoomFeature : MonoBehaviour
 {
 
     public SO_RoomFeature feature;
-
+    public bool isFixed = false;
     private Sprite _sprite;
 
     // Start is called before the first frame update
@@ -29,6 +29,8 @@ public class RoomFeature : MonoBehaviour
             );
         gameObject.GetComponent<BoxCollider2D>().size = S;
         //gameObject.GetComponent<BoxCollider2D>().offset = new Vector2((S.x / 2), 0);
+
+        checkIfFixed();
     }
 
     // Update is called once per frame
@@ -40,8 +42,21 @@ public class RoomFeature : MonoBehaviour
             if(feature.SO_Sprite != null)
             {
                 _sprite = feature.SO_Sprite;
+                if (isFixed)
+                    _sprite = feature.SO_Fixed_Image;
                 this.gameObject.GetComponent<SpriteRenderer>().sprite = _sprite;
             }
+            checkIfFixed();
+        }
+    }
+
+
+    void checkIfFixed()
+    {
+        if (isFixed)
+        {
+            _sprite = feature.SO_Fixed_Image;
+            Debug.Log("Updating sprite to a fixed sprite. isFixed: " +isFixed);
         }
     }
 }

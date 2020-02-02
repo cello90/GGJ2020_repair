@@ -19,6 +19,8 @@ public class ArtificalGravity : MonoBehaviour
     public float shipRadius = 5;
     public GameObject ground;
 
+    private bool paused = false;
+
     //private object references
     private Transform _gc; //Gravity Center
     private Rigidbody2D _rb; //our RigidBody
@@ -26,6 +28,24 @@ public class ArtificalGravity : MonoBehaviour
 
     //constants
     private float g = -9.81f;
+
+    void OnEnable()
+    {
+        Game.IsPausedEvent += Pause;
+    }
+
+    private void OnDisable()
+    {
+        Game.IsPausedEvent -= Pause;
+    }
+
+    private void Pause(object obj, InfoEventArgs<bool> e)
+    {
+        if (e.info == true)
+            paused = true;
+        else
+            paused = false;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,16 +57,21 @@ public class ArtificalGravity : MonoBehaviour
 
         _rb.gravityScale = 0; //Prevent mistakes by removing unity default gravity
 
-        _rb.velocity = transform.up;
-
         g = Physics.gravity.y; //Ensure that we have the correct value of little g
     }
 
     // FixedUpdate is called once per Physics loop
     void FixedUpdate()
     {
-        HandleRadius();
-        Debug.DrawLine(transform.position, (Vector2)transform.position + _rb.velocity, Color.blue);
+        if (!paused)
+        {
+            HandleRadius();
+            Debug.DrawLine(transform.position, (Vector2)transform.position + _rb.velocity, Color.blue);
+        }
+        else
+        {
+            _rb.velocity = new Vector3();
+        }
     }
 
     void HandleRadius()

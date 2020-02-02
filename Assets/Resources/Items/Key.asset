@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Key
   m_EditorClassIdentifier: 
   SO_Name: Key
-  SO_Sprite: {fileID: 21300000, guid: 0cb80bc3fa3bcc74a8510d70a605a166, type: 3}
+  SO_Sprite: {fileID: 21300000, guid: cab9ac188b9927a4592f5098a5d2954d, type: 3}

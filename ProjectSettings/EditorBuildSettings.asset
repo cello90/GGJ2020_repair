@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/1 Scenes/Game Over.unity
     guid: 4bd966472797b4b43bfa0d7a217aae1f
   - enabled: 1
-    path: Assets/1 Scenes/Game_Boot.unity
-    guid: 7e65856acffec7e42abebe2296d84b42
-  - enabled: 1
     path: Assets/1 Scenes/Room0.unity
     guid: 63be5d7e34da0b042874e1c1ea0d6198
   - enabled: 1
@@ -23,4 +20,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1 Scenes/Room2.unity
     guid: 95963ec406c86ce44a7431a399a922b3
+  - enabled: 1
+    path: Assets/1 Scenes/Room3.unity
+    guid: 57b67628f89386a4fa037d28ac9ec6fb
+  - enabled: 1
+    path: Assets/1 Scenes/Room4.unity
+    guid: a4316a44a1a65634b993c4249554055e
+  - enabled: 1
+    path: Assets/1 Scenes/Room5.unity
+    guid: 47165d40ba8c90c4389d12c5013ac479
+  - enabled: 1
+    path: Assets/1 Scenes/Room6.unity
+    guid: cb3eeec24a949714b8225f2cd1b51f3d
+  - enabled: 1
+    path: Assets/1 Scenes/Room7.unity
+    guid: ed2ad31b38171f4429105450a1e8b278
+  - enabled: 1
+    path: Assets/1 Scenes/Room8.unity
+    guid: 137ca94c197fa3e499b96ead6cdeb912
+  - enabled: 1
+    path: Assets/1 Scenes/Room9.unity
+    guid: 6607bbeae487a394dbbf291e5b5aba24
+  - enabled: 1
+    path: Assets/1 Scenes/Room10.unity
+    guid: 3a97a86529e9c1342b1ae6c140f96746
   m_configObjects: {}

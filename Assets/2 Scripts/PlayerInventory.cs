@@ -7,20 +7,26 @@ public class PlayerInventory : MonoBehaviour
 {
 
     public List<AudioClip> clips;
+    public bool canInteract = true;
 
     //public SO_BaseItem item;
     [SerializeField] private Collider2D hittingACollider;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        Game.IsPausedEvent += PauseGame;
+    }
+
+    private void OnDisable()
+    {
+        Game.IsPausedEvent -= PauseGame;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("L_E") > 0)
+        if (Input.GetAxis("L_E") > 0 && canInteract)
         {
             Debug.Log("Tried to interact...");
 
@@ -100,10 +106,15 @@ public class PlayerInventory : MonoBehaviour
         else if (featureObject.feature.problem_solver == Game.instance.currentItem)
         {
             Debug.Log("Should execute... Feature type: " + featureObject.feature.feature_enum.ToString());
+
+            // Reset Game current item
+            Game.instance.completedTasks.Add(Game.instance.currentItem);
+            Game.instance.currentItem = null;
+
+            // For Door
             if (featureObject.feature.feature_enum == Enum_Feature.Door)
             {
                 MoveRoom(featureObject);
-                Game.instance.completedTasks.Add(Game.instance.currentItem);
             }
         }
     }
@@ -123,4 +134,14 @@ public class PlayerInventory : MonoBehaviour
         Game.instance.door = featureObject.feature;
         Game.instance.LoadScene(featureObject.feature.SO_Door_NextRoom);        
     }
+
+    void PauseGame(object obj, InfoEventArgs<bool> e)
+    {
+        if (e.info == true)
+            canInteract = false;
+        else
+            canInteract = true;
+    }
+
+
 }

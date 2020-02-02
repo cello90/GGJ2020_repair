@@ -23,9 +23,9 @@ public class powerDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.charge > 0)
+        if (Game.instance.power > 0)
         {
-            float val = player.charge / change;
+            float val = Game.instance.power / change;
             val = (int) (powerLevel.Length - val);
             powerIndicator.texture = powerLevel[(int) val];
         }

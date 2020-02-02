@@ -6,4 +6,6 @@ public class SO_BaseItem : ScriptableObject
 {
     public string SO_Name;
     public Sprite SO_Sprite;
+    public AudioClip pickUp_Sound;
+    public AudioClip use_Sound;
 }

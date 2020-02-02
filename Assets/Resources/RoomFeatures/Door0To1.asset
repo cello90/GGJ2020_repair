@@ -17,4 +17,4 @@ MonoBehaviour:
   problem_solver: {fileID: 11400000, guid: 5d912c1a261f77e4ab26c3164e51e8f1, type: 2}
   SO_Sprite: {fileID: 21300000, guid: 74945758e79689b4da2a5bca81e90e1e, type: 3}
   SO_Door_NextRoom: 1
-  SO_Door_LinkedTo: {fileID: 11400000, guid: 6b3fd656b3e773643ab760364359f73f, type: 2}
+  SO_Door_LinkedTo: {fileID: 11400000}

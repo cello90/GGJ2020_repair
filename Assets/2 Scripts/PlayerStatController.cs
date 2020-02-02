@@ -11,23 +11,23 @@ public class PlayerStatController : MonoBehaviour
 
     [Header("DO NOT TOUCH")]
     public bool pluggedIn = false;
-    public float charge = 100;
 
     // Update is called once per frame
     void Update()
     {
         if (pluggedIn)
         {
-            if (charge < 100)
-                charge += chargeRate * Time.deltaTime;
-            if (charge > 100)
-                charge = 100;
+            if (Game.instance.power < 100)
+                Game.instance.power += Game.instance.power * Time.deltaTime;
+            if (Game.instance.power > 100)
+                Game.instance.power = 100;
         }
         else
         {
-            charge -= dischargeRate * Time.deltaTime;
-            if (charge < 0)
+            Game.instance.power -= dischargeRate * Time.deltaTime;
+            if (Game.instance.power < 0)
             {
+                Game.instance.power = 100f;
                 Application.LoadLevel(1);
             }
         }

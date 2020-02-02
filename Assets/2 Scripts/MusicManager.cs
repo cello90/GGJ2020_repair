@@ -16,6 +16,16 @@ public class MusicManager : MonoBehaviour
     private bool changingAmbience;
     private AudioSource[] sounds = new AudioSource[0];
 
+    private void OnEnable()
+    {
+        Game.CompleteTask += RecieveMusic;
+    }
+
+    private void OnDisable()
+    {
+        Game.CompleteTask -= RecieveMusic;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +42,13 @@ public class MusicManager : MonoBehaviour
             newMusic = music;
         }
     }
+
+    public void RecieveMusic(object obj, InfoEventArgs<AudioClip, string> e)
+    {
+        Debug.Log("Recieved music");
+        SetMusic(e.type);
+    }
+
     public void SetAmbience(AudioClip ambience)
     {
         if (ambience != _mp.clip)

@@ -16,5 +16,7 @@ MonoBehaviour:
   feature_enum: 3
   problem_solver: {fileID: 11400000, guid: cb224dccafe573447a4b8b31738b534e, type: 2}
   SO_Sprite: {fileID: 21300000, guid: 7828b2ce0998c75479c56b9510b683f5, type: 3}
+  SO_Fixed_Image: {fileID: 0}
   SO_Door_NextRoom: 0
   SO_Door_LinkedTo: {fileID: 0}
+  story_chapter: 1

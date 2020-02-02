@@ -34,6 +34,7 @@ public class RoomFeature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Auto set sprite
         if (_sprite == null) 
         { 
             if(feature.SO_Sprite != null)
@@ -43,34 +44,4 @@ public class RoomFeature : MonoBehaviour
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        if(feature.feature_enum == Enum_Feature.Elevator)
-        {
-            // TEMP CODE -> Need to have this system more blown out
-            GameObject.Find("Menu_Elevator").transform.Find("Image").transform.position = new Vector3(0, 0, 0);
-        }
-
-        else if(feature.feature_enum == Enum_Feature.Door)
-        {
-            
-        }
-
-        //else if(collision.gameObject.GetComponent<Zac_Test_move>().item == feature.problem_solver)
-        //{
-        //    // 
-        //    collision.gameObject.GetComponent<Zac_Test_move>().item = null;
-        //    Debug.Log("Terrain destroying self...");
-        //    Destroy(this.gameObject);
-        //}
-    }
-
-    private void SolvedProblem()
-    {
-
-    }
-
-    
 }

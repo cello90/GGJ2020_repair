@@ -503,12 +503,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentRoom: 0
   inMenu: 0
-  player: {fileID: 0}
-  door: {fileID: 0}
+  json_file: {fileID: 4900000, guid: 70f0f74d81f579f4f8966dda07518637, type: 3}
   music: {fileID: 0}
+  json: {fileID: 0}
   completedTasks: []
   unlockedDoors: []
   currentItem: {fileID: 0}
+  power: 100
+  player: {fileID: 0}
+  door: {fileID: 0}
 --- !u!4 &896512809
 Transform:
   m_ObjectHideFlags: 0
@@ -555,7 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5aa33502dd9314c92bc90e8fa5905e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startLevel: 3
+  startLevel: 2
 --- !u!114 &975562429
 MonoBehaviour:
   m_ObjectHideFlags: 0

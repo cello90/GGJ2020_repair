@@ -5,20 +5,34 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-
+    // Game State
     public int currentRoom;
     public bool inMenu = false;
+    public TextAsset json_file = null;
+
+    // Singleton code
     public static Game instance = null;
+   
+    // Managers
+    public MusicManager music = null;
+    public JSON_Manager json = null;
+
+    // Achievements
+    public List<SO_BaseItem> completedTasks = new List<SO_BaseItem>();
+    
+    // Current player stuff
+    public SO_BaseItem currentItem = null;
+    public float power = 100;
     public GameObject player = null;
     public SO_RoomFeature door = null;
-    public MusicManager music = null;
-    public List<SO_BaseItem> completedTasks = new List<SO_BaseItem>();
-    public List<SO_RoomFeature> unlockedDoors = new List<SO_RoomFeature>();
-    public SO_BaseItem currentItem = null;
 
     // Notification Constants
     public static event EventHandler<InfoEventArgs<GameObject, string>> EnterCollider;
     public static event EventHandler<InfoEventArgs<GameObject>> ExitCollider;
+    public static event EventHandler<InfoEventArgs<bool>> IsPausedEvent;
+    public static event EventHandler<InfoEventArgs<AudioClip, string>> CompleteTask;
+
+    public bool firstMesssageRecieved = false;
 
     //fireEvent(this, new InfoEventArgs<int>(i));
 
@@ -32,10 +46,16 @@ public class Game : MonoBehaviour
     {
         if(instance == null)
         {
+
+            if(json_file == null)
+            {
+                json_file = Resources.Load<TextAsset>("GGJ.json");
+            }
+
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             music = this.gameObject.AddComponent<MusicManager>();
-
+            json = this.gameObject.AddComponent<JSON_Manager>();
         }
         else
         {
@@ -68,6 +88,8 @@ public class Game : MonoBehaviour
         gravityCenter.tag = "Gravity Center";
 
         spawnPlayer();
+
+        UpdateSceneForCurrentProgress();
     }
 
     private void spawnPlayer()
@@ -159,6 +181,27 @@ public class Game : MonoBehaviour
             ExitCollider(this, new InfoEventArgs<GameObject>(obj));
     }
 
+    public void PauseGame(bool pause)
+    {
+        if (pause)
+        {
+            IsPausedEvent(this, new InfoEventArgs<bool>(true));
+            Debug.Log("Should pause game");
+        }
+        else
+        {
+            IsPausedEvent(this, new InfoEventArgs<bool>(false));
+            Debug.Log("Should unpause game");
+        }
+    }
+
+    public void CompletedATask(GameObject obj, string story, AudioClip clip)
+    {
+        Debug.Log("Should have completed a task!");
+        CompleteTask(obj, new InfoEventArgs<AudioClip, string>(clip, story));
+        PauseGame(true);
+    }
+
     void UpdateSceneForCurrentProgress()
     {
         RoomFeature[] features = GameObject.FindObjectsOfType<RoomFeature>();
@@ -175,6 +218,8 @@ public class Game : MonoBehaviour
         //    }
         //}
 
+        Debug.Log("Found " + items.Length + " of items in the room");
+
         foreach(BaseItem item in items)
         {
             foreach(SO_BaseItem bi in completedTasks)
@@ -187,10 +232,10 @@ public class Game : MonoBehaviour
         }
     }
 
+
     public void Reset()
     {
         completedTasks = new List<SO_BaseItem>();
-        unlockedDoors = new List<SO_RoomFeature>();
         Debug.Log("Would reset the Game data");
     }
 }

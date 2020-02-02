@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608dacc812f02ca4e905dad349a881e1, type: 3}
   m_Name: Door11To12
   m_EditorClassIdentifier: 
-  name: Door1To0
+  name: Door11To12
   feature_enum: 1
   problem_solver: {fileID: 0}
   SO_Sprite: {fileID: 21300000, guid: 74945758e79689b4da2a5bca81e90e1e, type: 3}
   SO_Door_NextRoom: 12
-  SO_Door_LinkedTo: {fileID: 11400000, guid: 060e724dc42f5c4449fd3dc58a4b6c72, type: 2}
+  SO_Door_LinkedTo: {fileID: 11400000, guid: 73bf28c5e421adb40b564afa5f902d1c, type: 2}

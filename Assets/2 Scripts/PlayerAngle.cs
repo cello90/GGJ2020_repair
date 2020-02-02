@@ -35,9 +35,9 @@ public class PlayerAngle : MonoBehaviour
             else
             {
                 if ((_gc.position.y - transform.position.y) > 0)
-                    transform.eulerAngles = new Vector3(0, 0, 90);
+                    transform.eulerAngles = new Vector3(0, 0, 0);
                 else
-                    transform.eulerAngles = new Vector3(0, 0, -90);
+                    transform.eulerAngles = new Vector3(0, 0, 180);
             }
         }
         else
